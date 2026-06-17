@@ -33,9 +33,10 @@
         .btn-download { background: var(--primary-red); color: white; padding: 15px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 20px; }
 
         @media print {
-            .btn-download, .clear-btn, .back-link { display: none; }
+            .btn-download, .clear-btn, .back-link { display: none !important; }
             body { background-color: white; padding: 0; }
-            .container { box-shadow: none; border-radius: 0; }
+            .container { box-shadow: none; border-radius: 0; padding: 10px; }
+            canvas { border: 1px solid #000; }
         }
     </style>
 </head>
@@ -69,6 +70,7 @@
         }
     </script>
 
+    <!-- Sections (Attendance, Merchandising, Admin, Client) -->
     <div class="section">
         <h3>1. ATTENDANCE & BEHAVIOR</h3>
         <div class="row">Attendance & punctuality: <script>renderRadio('row1');</script></div>
@@ -151,7 +153,7 @@
 <button class="btn-download" onclick="submitForm()">SUBMIT TO GOOGLE SHEET & PRINT</button>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwmvmv9L-xMubWVCgJ0LRwmyiNT61M2kwaGNT1XPZ1d2aIIW0pgxG4ASugaAh-Y_r14Mw/exec;
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwmvmv9L-xMubWVCgJ0LRwmyiNT61M2kwaGNT1XPZ1d2aIIW0pgxG4ASugaAh-Y_r14Mw/exec';
 
     function calculateScore() {
         let total = 0;
