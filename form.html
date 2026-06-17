@@ -25,7 +25,6 @@
         
         textarea { width: 100%; height: 60px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; padding: 10px; resize: none; box-sizing: border-box; }
         
-        /* Signature Styles with Touch Support */
         .sig-container { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
         canvas { border: 1px solid #ccc; border-radius: 5px; cursor: crosshair; background: #fafafa; touch-action: none; width: 100%; max-width: 300px; }
         .clear-btn { font-size: 12px; color: var(--primary-red); cursor: pointer; background: none; border: none; text-decoration: underline; }
@@ -103,7 +102,7 @@
     </div>
 
     <div class="section">
-        <h3>OVERALL ASSESSMENT (Total Score: <span id="total-score">0</span>)</h3>
+        <h3>OVERALL ASSESSMENT (Total Score: <span id="total-score" style="color: var(--primary-red); font-weight: bold;">0</span>)</h3>
         <div style="font-size: 0.9rem;">
             <label><input type="radio" name="overall" id="score-poor" disabled> Poor (<24)</label> <br>
             <label><input type="radio" name="overall" id="score-needs" disabled> Needs Improvement (24-35)</label> <br>
