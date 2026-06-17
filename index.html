@@ -4,97 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iMerch Portal</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Dito ilalagay ang favicon gamit ang iyong assessment.png -->
+    <link rel="icon" type="image/png" href="assessment.png">
     <style>
-        :root {
-            --primary: #d32f2f;
-            --bg-light: #eef2f3;
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --text-color: #333;
-        }
-        body.dark-mode {
-            --bg-light: #121212;
-            --glass-bg: rgba(40, 40, 40, 0.7);
-            --text-color: #fff;
-        }
-
-        body { 
-            font-family: 'Segoe UI', Tahoma, sans-serif; 
-            background: linear-gradient(135deg, #d32f2f, #7b1fa2); 
-            min-height: 100vh; margin: 0; padding: 40px; 
-            color: var(--text-color);
-            transition: all 0.5s ease;
-        }
-
-        .container { 
-            max-width: 800px; margin: auto; 
-            background: var(--glass-bg); 
-            backdrop-filter: blur(15px); /* Eto ang WOW Factor */
-            padding: 40px; border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-
-        .header { text-align: center; margin-bottom: 30px; }
-        .logo { max-width: 150px; }
-        
-        .card { 
-            background: rgba(255,255,255,0.2); 
-            padding: 25px; border-radius: 15px; 
-            margin: 20px 0; border-left: 5px solid var(--primary);
-            transition: transform 0.3s;
-        }
-        .card:hover { transform: scale(1.02); }
-
-        .btn { 
-            background: var(--primary); color: white; padding: 12px 25px; 
-            text-decoration: none; border-radius: 50px; font-weight: bold; 
-            display: inline-block; margin-top: 15px; border: none; cursor: pointer;
-        }
-
-        .toggle-btn {
-            position: absolute; top: 20px; right: 20px;
-            background: rgba(255,255,255,0.2); border: none;
-            padding: 10px 20px; border-radius: 20px; cursor: pointer; color: white;
-            font-weight: bold;
-        }
+        :root { --primary: #d32f2f; --glass-bg: rgba(255, 255, 255, 0.7); }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #d32f2f, #7b1fa2); min-height: 100vh; padding: 40px; color: #333; }
+        .container { max-width: 800px; margin: auto; background: var(--glass-bg); backdrop-filter: blur(15px); padding: 40px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+        .card { background: rgba(255,255,255,0.4); padding: 25px; border-radius: 15px; margin: 20px 0; border-left: 5px solid var(--primary); }
+        .btn { background: var(--primary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block; margin-top: 15px; }
+        ul { padding-left: 20px; line-height: 1.6; }
     </style>
 </head>
 <body>
-
-<button class="toggle-btn" onclick="toggleMode()">🌓 Dark/Light Mode</button>
-
 <div class="container">
-    <div class="header">
-        <img src="logo1.png" alt="iMerch Logo" class="logo">
-        <h1>Requirement Portal</h1>
-    </div>
+    <img src="logo1.png" style="max-width:150px; display:block; margin:auto;">
+    <h1 style="text-align:center; color:var(--primary);">Requirement Portal</h1>
     
     <div class="card">
         <h3>1. Monthly Performance Assessment</h3>
-        <p>1.a  All Field  Team members  need  to submit  the Monthly Performance  Assessment  of their  respective team  members  from Managers  to Merchandising Operations Supervisors / Trade Supervisors / Field Coordinators/ Team Leaders and to Merchandisers  
-and PMS. 
- 
-    1.b These performance  evaluation MUST be attached to your  DTRs effective  June  15, 2026. These  should  be based  on your 
-Monthly coverage plan. For this  June 15  cut-off  the basis of the  evaluaiton is the previous month which is May 2026. 
-
-   1.c Monthly performance assessment  will tbe  based  on the previous month and  your coverage plan. The assessment  sheets  
-must be signed  by the  person evaluated.and  submitted  to the Head office for the checking of  the SBG1 Managers/ Head. 
-All copies  will be  transmitetd to HR for  201 filing. Attached  a copy for your reference. </p>
+        <ul>
+            <li><strong>1.a</strong> All Field Team members need to submit the Monthly Performance Assessment of their respective team members from Managers to Merchandising Operations Supervisors / Trade Supervisors / Field Coordinators/ Team Leaders and to Merchandisers and PMS.</li>
+            <li><strong>1.b</strong> These performance evaluation MUST be attached to your DTRs effective June 15, 2026. These should be based on your Monthly coverage plan. For this June 15 cut-off the basis of the evaluation is the previous month which is May 2026.</li>
+            <li><strong>1.c</strong> Monthly performance assessment will be based on the previous month and your coverage plan. The assessment sheets must be signed by the person evaluated and submitted to the Head Office for the checking of the SBG1 Managers/ Head. All copies will be transmitted to HR for 201 filing.</li>
+        </ul>
         <a href="form.html" class="btn">OPEN PERFORMANCE FORM</a>
     </div>
-
-    <div class="card">
-        <h3>2. Exit Clearance</h3>
-        <p>Effective: June 5, 2026. Inventory report required.</p>
-        <button class="btn" style="background:#555" onclick="alert('Form is being updated. Contact HR.')">SOON</button>
-    </div>
 </div>
-
-<script>
-    function toggleMode() {
-        document.body.classList.toggle('dark-mode');
-    }
-</script>
 </body>
 </html>
