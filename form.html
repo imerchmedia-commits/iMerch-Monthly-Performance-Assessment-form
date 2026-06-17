@@ -2,29 +2,177 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>iMerch Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iMerch Monthly Performance Assessment</title>
     <style>
-        body { font-family: sans-serif; background: #f4f7f6; padding: 40px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; }
-        .card { background: #f9f9f9; padding: 20px; border-left: 5px solid #d32f2f; margin: 20px 0; }
-        .btn { display: inline-block; background: #d32f2f; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; }
+        :root { --primary-red: #d32f2f; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid var(--primary-red); padding-bottom: 20px; }
+        .logo { max-width: 200px; }
+        h2 { color: var(--primary-red); text-transform: uppercase; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .section { margin-bottom: 30px; }
+        .row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+        
+        .rating-group { display: flex; gap: 12px; }
+        .rating-group label { display: flex; align-items: center; cursor: pointer; font-weight: bold; }
+        .rating-group input { width: 18px; height: 18px; margin-right: 5px; accent-color: var(--primary-red); cursor: pointer; }
+        
+        .action-steps-container { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        .action-step-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        
+        textarea { width: 100%; height: 60px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; padding: 10px; resize: none; box-sizing: border-box; }
+        
+        /* Signature Styles */
+        .sig-container { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+        canvas { border: 1px solid #ccc; border-radius: 5px; cursor: crosshair; background: #fafafa; }
+        .clear-btn { font-size: 12px; color: var(--primary-red); cursor: pointer; background: none; border: none; text-decoration: underline; }
+        
+        .footer { margin-top: 50px; text-align: center; font-size: 0.85rem; color: #666; border-top: 1px solid #ccc; padding-top: 20px; }
+        .btn-download { background: var(--primary-red); color: white; padding: 15px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 20px; }
+
+        @media print {
+            .btn-download, .clear-btn { display: none; }
+            body { background-color: white; padding: 0; }
+            .container { box-shadow: none; border-radius: 0; }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>iMerch Requirement Portal</h1>
-    
-    <div class="card">
-        <h3>1. Monthly Performance Assessment</h3>
-        <p>Target: Field Team | Effective: June 15, 2026</p>
-        <a href="form.html" class="btn">OPEN PERFORMANCE FORM</a>
+
+<div class="container" id="printable-area">
+    <div class="header">
+        <img src="logo1.png" alt="iMerch Logo" class="logo">
+        <h2>MONTHLY PERFORMANCE ASSESSMENT</h2>
     </div>
 
-    <div class="card">
-        <h3>2. Exit Clearance</h3>
-        <p>Required for resigned staff. Effective: June 5, 2026</p>
-        <button class="btn" style="background:#555">COMING SOON</button>
+    <div class="info-grid">
+        <input type="text" placeholder="Employee Name" style="padding:8px;">
+        <input type="date" style="padding:8px;">
+        <input type="text" placeholder="Account / Store" style="padding:8px;">
+        <input type="text" placeholder="Supervisor" style="padding:8px;">
+        <input type="text" placeholder="Review Period" style="grid-column: span 2; padding:8px;">
+    </div>
+
+    <script>
+        function renderCheckboxes() {
+            document.write('<div class="rating-group">');
+            for(let i=1; i<=5; i++) {
+                document.write(`<label><input type="checkbox"> ${i}</label>`);
+            }
+            document.write('</div>');
+        }
+    </script>
+
+    <div class="section">
+        <h3>1. ATTENDANCE & BEHAVIOR</h3>
+        <div class="row">Attendance & punctuality: <script>renderCheckboxes();</script></div>
+        <div class="row">Proper behavior & professionalism: <script>renderCheckboxes();</script></div>
+        <div class="row">Follows company & store rules: <script>renderCheckboxes();</script></div>
+        <textarea placeholder="Supervisor Comments..."></textarea>
+    </div>
+
+    <div class="section">
+        <h3>2. MERCHANDISING EXECUTION</h3>
+        <div class="row">Correct display & planogram compliance: <script>renderCheckboxes();</script></div>
+        <div class="row">Product availability & shelf condition: <script>renderCheckboxes();</script></div>
+        <div class="row">Proper execution of promos & standards: <script>renderCheckboxes();</script></div>
+        <textarea placeholder="Supervisor Comments..."></textarea>
+    </div>
+
+    <div class="section">
+        <h3>3. ADMINISTRATIVE REPORTS & COMPLIANCE</h3>
+        <div class="row">On-time submission of reports: <script>renderCheckboxes();</script></div>
+        <div class="row">Accuracy & completeness of reports: <script>renderCheckboxes();</script></div>
+        <div class="row">Compliance with reporting guidelines: <script>renderCheckboxes();</script></div>
+        <textarea placeholder="Supervisor Comments..."></textarea>
+    </div>
+
+    <div class="section">
+        <h3>4. CLIENT FEEDBACK</h3>
+        <div class="row">Relationship with store staff: <script>renderCheckboxes();</script></div>
+        <div class="row">Responsiveness & cooperation: <script>renderCheckboxes();</script></div>
+        <div class="row">Overall client satisfaction: <script>renderCheckboxes();</script></div>
+        <textarea placeholder="Supervisor Comments..."></textarea>
+    </div>
+
+    <div class="section">
+        <h3>OVERALL ASSESSMENT</h3>
+        <div style="font-size: 0.9rem;">
+            <label><input type="checkbox"> Poor (<24)</label> 
+            <label><input type="checkbox"> Needs Improvement (24-35)</label> 
+            <label><input type="checkbox"> Acceptable (36-47)</label> 
+            <label><input type="checkbox"> Good (48-59)</label> 
+            <label><input type="checkbox"> Excellent (60)</label>
+        </div>
+        <p>Key Strengths:</p>
+        <textarea></textarea>
+    </div>
+
+    <div class="section">
+        <h3>PERFORMANCE IMPROVEMENT PLAN (PIP)</h3>
+        <p>Issues to Improve:</p>
+        <textarea></textarea>
+        <p>Agreed Action Steps:</p>
+        <div class="action-steps-container">
+            <input type="text" class="action-step-input" placeholder="1. ________________________________________">
+            <input type="text" class="action-step-input" placeholder="2. ________________________________________">
+        </div>
+        <p style="margin-top: 15px;">Target Date for Improvement: <input type="date"></p>
+    </div>
+
+    <div class="section">
+        <h3>ACKNOWLEDGMENT</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="sig-container">
+                <label>Employee Signature:</label>
+                <canvas id="sigEmp" width="300" height="80"></canvas>
+                <button type="button" class="clear-btn" onclick="clearSig('sigEmp')">Clear</button>
+                <input type="date">
+            </div>
+            <div class="sig-container">
+                <label>Supervisor Signature:</label>
+                <canvas id="sigSup" width="300" height="80"></canvas>
+                <button type="button" class="clear-btn" onclick="clearSig('sigSup')">Clear</button>
+                <input type="date">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>No. 493 Halcon Street, Brgy. Malamig, Mandaluyong City 1550 Metro Manila, Philippines</p>
+        <p>Tel. Nos. 8260 8492 local 101</p>
     </div>
 </div>
+
+<button class="btn-download" onclick="window.print()">SAVE & DOWNLOAD AS PDF</button>
+
+<script>
+    // Signature Pad Logic
+    function setupCanvas(id) {
+        const canvas = document.getElementById(id);
+        const ctx = canvas.getContext('2d');
+        let painting = false;
+        canvas.onmousedown = () => painting = true;
+        canvas.onmouseup = () => { painting = false; ctx.beginPath(); };
+        canvas.onmousemove = (e) => {
+            if (!painting) return;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        };
+    }
+    function clearSig(id) {
+        const canvas = document.getElementById(id);
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    }
+    setupCanvas('sigEmp');
+    setupCanvas('sigSup');
+</script>
+
 </body>
 </html>
