@@ -131,18 +131,29 @@
     <div class="section">
         <h3>ACKNOWLEDGMENT</h3>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div class="sig-container">
-                <label>Employee Signature:</label>
-                <canvas id="sigEmp" width="300" height="150"></canvas>
-                <button type="button" class="clear-btn" onclick="clearSig('sigEmp')">Clear Signature</button>
+        <!-- Employee Section -->
+        <div class="sig-container">
+            <label style="align-self: flex-start;">Employee Signature:</label>
+            <canvas id="sigEmp" width="300" height="150"></canvas>
+            <button type="button" class="clear-btn" onclick="clearSig('sigEmp')">Clear Signature</button>
+            <div style="width: 100%; margin-top: 10px;">
+                <label>Date:</label>
+                <input type="date" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
             </div>
-            <div class="sig-container">
-                <label>Supervisor Signature:</label>
-                <canvas id="sigSup" width="300" height="150"></canvas>
-                <button type="button" class="clear-btn" onclick="clearSig('sigSup')">Clear Signature</button>
+        </div>
+        
+        <!-- Supervisor Section -->
+        <div class="sig-container">
+            <label style="align-self: flex-start;">Supervisor Signature:</label>
+            <canvas id="sigSup" width="300" height="150"></canvas>
+            <button type="button" class="clear-btn" onclick="clearSig('sigSup')">Clear Signature</button>
+            <div style="width: 100%; margin-top: 10px;">
+                <label>Date:</label>
+                <input type="date" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
             </div>
         </div>
     </div>
+</div>
 
     <div class="footer">
         <p>No. 493 Halcon Street, Brgy. Malamig, Mandaluyong City 1550 Metro Manila, Philippines</p>
