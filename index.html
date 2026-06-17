@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iMerch Portal</title>
-    <!-- Dito ilalagay ang favicon gamit ang iyong assessment.png -->
     <link rel="icon" type="image/png" href="assessment.png">
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { --primary: #d32f2f; --glass-bg: rgba(255, 255, 255, 0.7); }
         body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #d32f2f, #7b1fa2); min-height: 100vh; padding: 40px; color: #333; }
         .container { max-width: 800px; margin: auto; background: var(--glass-bg); backdrop-filter: blur(15px); padding: 40px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
         .card { background: rgba(255,255,255,0.4); padding: 25px; border-radius: 15px; margin: 20px 0; border-left: 5px solid var(--primary); }
         .btn { background: var(--primary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block; margin-top: 15px; }
-        ul { padding-left: 20px; line-height: 1.6; }
+        #chartContainer { margin-top: 30px; }
     </style>
 </head>
 <body>
@@ -20,22 +21,55 @@
     <img src="logo1.png" style="max-width:150px; display:block; margin:auto;">
     <h1 style="text-align:center; color:var(--primary);">Requirement Portal</h1>
     
+    <!-- Dashboard Section -->
+    <div class="card" id="chartContainer">
+        <h3>Assessments Summary per Supervisor</h3>
+        <canvas id="assessmentChart"></canvas>
+    </div>
+
     <div class="card">
         <h3>1. Monthly Performance Assessment</h3>
         <ul>
-            <li><strong>1.a</strong> All Field Team members need to submit the Monthly Performance Assessment of their respective team members from Managers to Merchandising Operations Supervisors / Trade Supervisors / Field Coordinators/ Team Leaders and to Merchandisers and PMS.</li>
-            <li><strong>1.b</strong> These performance evaluation MUST be attached to your DTRs effective June 15, 2026. These should be based on your Monthly coverage plan. For this June 15 cut-off the basis of the evaluation is the previous month which is May 2026.</li>
-            <li><strong>1.c</strong> Monthly performance assessment will be based on the previous month and your coverage plan. The assessment sheets must be signed by the person evaluated and submitted to the Head Office for the checking of the SBG1 Managers/ Head. All copies will be transmitted to HR for 201 filing.</li>
+            <li><strong>1.a</strong> Submit Monthly Performance Assessments for all team members.</li>
+            <li><strong>1.b</strong> Attached to DTRs effective June 15, 2026.</li>
         </ul>
         <a href="form.html" class="btn">OPEN PERFORMANCE FORM</a>
     </div>
 </div>
-    <!-- Ilagay ito pagkatapos ng closing </div> ng container -->
-    <div style="text-align: center; margin-top: 30px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 1.1rem; padding: 10px;">
-        💖 Love &nbsp; 🤝 Care &nbsp; 🤲 Share &nbsp; 🗣️ Communicate &nbsp; 🛡️ Trust
-    </div>
-    <!-- Footer Credit -->
-<div style="text-align: center; margin-top: 20px; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem; margin-bottom: 20px;">
+
+<script>
+    // PALITAN ITO NG IYONG WEB APP URL (Yung dulo ay /exec)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxjZMhwvJnQPotcpNoE620TTlRtriHcwEuE8O5pCTkbmGzlh3eM5AkIAxIf9t3w1ybL/exec';
+
+    fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            // I-process ang data (I-filter ang supervisor sa column 4, assuming column 4 ang supervisor)
+            const counts = {};
+            data.forEach((row, index) => {
+                if(index === 0) return; // Skip header
+                const sup = row[4]; 
+                counts[sup] = (counts[sup] || 0) + 1;
+            });
+
+            new Chart(document.getElementById('assessmentChart'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(counts),
+                    datasets: [{
+                        label: 'Total Assessments Done',
+                        data: Object.values(counts),
+                        backgroundColor: '#d32f2f'
+                    }]
+                }
+            });
+        });
+</script>
+
+<div style="text-align: center; margin-top: 30px; color: rgba(255,255,255,0.8); font-weight: bold; font-size: 1.1rem; padding: 10px;">
+    💖 Love &nbsp; 🤝 Care &nbsp; 🤲 Share &nbsp; 🗣️ Communicate &nbsp; 🛡️ Trust
+</div>
+<div style="text-align: center; margin-top: 20px; color: rgba(255, 255, 255, 0.5); font-size: 0.8rem;">
     Established 2026 by Ron Sarmenta
 </div>
 </body>
