@@ -61,10 +61,10 @@
     </div>
 
     <script>
-        function renderCheckboxes() {
+        function renderRadio(name) {
             document.write('<div class="rating-group">');
             for(let i=1; i<=5; i++) {
-                document.write(`<label><input type="checkbox"> ${i}</label>`);
+                document.write(`<label><input type="radio" name="${name}" value="${i}" onclick="calculateScore()"> ${i}</label>`);
             }
             document.write('</div>');
         }
@@ -72,44 +72,44 @@
 
     <div class="section">
         <h3>1. ATTENDANCE & BEHAVIOR</h3>
-        <div class="row">Attendance & punctuality: <script>renderCheckboxes();</script></div>
-        <div class="row">Proper behavior & professionalism: <script>renderCheckboxes();</script></div>
-        <div class="row">Follows company & store rules: <script>renderCheckboxes();</script></div>
+        <div class="row">Attendance & punctuality: <script>renderRadio('row1');</script></div>
+        <div class="row">Proper behavior & professionalism: <script>renderRadio('row2');</script></div>
+        <div class="row">Follows company & store rules: <script>renderRadio('row3');</script></div>
         <textarea placeholder="Supervisor Comments..."></textarea>
     </div>
 
     <div class="section">
         <h3>2. MERCHANDISING EXECUTION</h3>
-        <div class="row">Correct display & planogram compliance: <script>renderCheckboxes();</script></div>
-        <div class="row">Product availability & shelf condition: <script>renderCheckboxes();</script></div>
-        <div class="row">Proper execution of promos & standards: <script>renderCheckboxes();</script></div>
+        <div class="row">Correct display & planogram compliance: <script>renderRadio('row4');</script></div>
+        <div class="row">Product availability & shelf condition: <script>renderRadio('row5');</script></div>
+        <div class="row">Proper execution of promos & standards: <script>renderRadio('row6');</script></div>
         <textarea placeholder="Supervisor Comments..."></textarea>
     </div>
 
     <div class="section">
         <h3>3. ADMINISTRATIVE REPORTS & COMPLIANCE</h3>
-        <div class="row">On-time submission of reports: <script>renderCheckboxes();</script></div>
-        <div class="row">Accuracy & completeness of reports: <script>renderCheckboxes();</script></div>
-        <div class="row">Compliance with reporting guidelines: <script>renderCheckboxes();</script></div>
+        <div class="row">On-time submission of reports: <script>renderRadio('row7');</script></div>
+        <div class="row">Accuracy & completeness of reports: <script>renderRadio('row8');</script></div>
+        <div class="row">Compliance with reporting guidelines: <script>renderRadio('row9');</script></div>
         <textarea placeholder="Supervisor Comments..."></textarea>
     </div>
 
     <div class="section">
         <h3>4. CLIENT FEEDBACK</h3>
-        <div class="row">Relationship with store staff: <script>renderCheckboxes();</script></div>
-        <div class="row">Responsiveness & cooperation: <script>renderCheckboxes();</script></div>
-        <div class="row">Overall client satisfaction: <script>renderCheckboxes();</script></div>
+        <div class="row">Relationship with store staff: <script>renderRadio('row10');</script></div>
+        <div class="row">Responsiveness & cooperation: <script>renderRadio('row11');</script></div>
+        <div class="row">Overall client satisfaction: <script>renderRadio('row12');</script></div>
         <textarea placeholder="Supervisor Comments..."></textarea>
     </div>
 
     <div class="section">
-        <h3>OVERALL ASSESSMENT</h3>
+        <h3>OVERALL ASSESSMENT (Total Score: <span id="total-score">0</span>)</h3>
         <div style="font-size: 0.9rem;">
-            <label><input type="checkbox"> Poor (<24)</label> 
-            <label><input type="checkbox"> Needs Improvement (24-35)</label> 
-            <label><input type="checkbox"> Acceptable (36-47)</label> 
-            <label><input type="checkbox"> Good (48-59)</label> 
-            <label><input type="checkbox"> Excellent (60)</label>
+            <label><input type="radio" name="overall" id="score-poor" disabled> Poor (<24)</label> <br>
+            <label><input type="radio" name="overall" id="score-needs" disabled> Needs Improvement (24-35)</label> <br>
+            <label><input type="radio" name="overall" id="score-acc" disabled> Acceptable (36-47)</label> <br>
+            <label><input type="radio" name="overall" id="score-good" disabled> Good (48-59)</label> <br>
+            <label><input type="radio" name="overall" id="score-exc" disabled> Excellent (60)</label>
         </div>
         <p>Key Strengths:</p>
         <textarea></textarea>
@@ -130,7 +130,6 @@
     <div class="section">
         <h3>ACKNOWLEDGMENT</h3>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <!-- Employee Signature -->
             <div class="sig-container">
                 <label>Employee Signature:</label>
                 <canvas id="sigEmp" width="300" height="150"></canvas>
@@ -138,8 +137,6 @@
                 <label style="font-size: 0.8rem; margin-top: 5px;">Date:</label>
                 <input type="date" style="padding: 5px; width: 100%; max-width: 300px;">
             </div>
-            
-            <!-- Supervisor Signature -->
             <div class="sig-container">
                 <label>Supervisor Signature:</label>
                 <canvas id="sigSup" width="300" height="150"></canvas>
@@ -159,48 +156,48 @@
 <button class="btn-download" onclick="window.print()">SAVE & DOWNLOAD AS PDF</button>
 
 <script>
-    // Signature Pad Logic with Touch Support
+    function calculateScore() {
+        let total = 0;
+        for (let i = 1; i <= 12; i++) {
+            const checked = document.querySelector(`input[name="row${i}"]:checked`);
+            if (checked) total += parseInt(checked.value);
+        }
+        document.getElementById('total-score').innerText = total;
+        
+        const radios = document.getElementsByName('overall');
+        radios.forEach(r => r.checked = false);
+        
+        if (total > 0 && total < 24) document.getElementById('score-poor').checked = true;
+        else if (total >= 24 && total <= 35) document.getElementById('score-needs').checked = true;
+        else if (total >= 36 && total <= 47) document.getElementById('score-acc').checked = true;
+        else if (total >= 48 && total <= 59) document.getElementById('score-good').checked = true;
+        else if (total >= 60) document.getElementById('score-exc').checked = true;
+    }
+
     function setupCanvas(id) {
         const canvas = document.getElementById(id);
         const ctx = canvas.getContext('2d');
         let painting = false;
-
         function startPosition(e) { painting = true; draw(e); }
         function finishedPosition() { painting = false; ctx.beginPath(); }
-        
         function draw(e) {
             if (!painting) return;
             const rect = canvas.getBoundingClientRect();
-            // Para makuha ang coordinates kahit mouse o touch
             const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
             const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-            
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
+            ctx.lineWidth = 2; ctx.lineCap = 'round';
             ctx.lineTo(clientX - rect.left, clientY - rect.top);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(clientX - rect.left, clientY - rect.top);
+            ctx.stroke(); ctx.beginPath(); ctx.moveTo(clientX - rect.left, clientY - rect.top);
         }
-
-        // Mouse Events
         canvas.addEventListener('mousedown', startPosition);
         canvas.addEventListener('mouseup', finishedPosition);
         canvas.addEventListener('mousemove', draw);
-
-        // Touch Events
         canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startPosition(e); });
         canvas.addEventListener('touchend', finishedPosition);
         canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
     }
-
-    function clearSig(id) {
-        const canvas = document.getElementById(id);
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    setupCanvas('sigEmp');
-    setupCanvas('sigSup');
+    function clearSig(id) { const canvas = document.getElementById(id); canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height); }
+    setupCanvas('sigEmp'); setupCanvas('sigSup');
 </script>
 
 </body>
