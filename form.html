@@ -52,11 +52,11 @@
     </div>
 
     <div class="info-grid">
-        <input type="text" placeholder="Employee Name" style="padding:8px;">
-        <input type="date" style="padding:8px;">
-        <input type="text" placeholder="Account / Store" style="padding:8px;">
-        <input type="text" placeholder="Supervisor" style="padding:8px;">
-        <input type="text" placeholder="Review Period" style="grid-column: span 2; padding:8px;">
+        <input type="text" id="empName" placeholder="Employee Name" style="padding:8px;">
+        <input type="date" id="date" style="padding:8px;">
+        <input type="text" id="store" placeholder="Account / Store" style="padding:8px;">
+        <input type="text" id="supervisor" placeholder="Supervisor" style="padding:8px;">
+        <input type="text" id="reviewPeriod" placeholder="Review Period" style="grid-column: span 2; padding:8px;">
     </div>
 
     <script>
@@ -74,7 +74,7 @@
         <div class="row">Attendance & punctuality: <script>renderRadio('row1');</script></div>
         <div class="row">Proper behavior & professionalism: <script>renderRadio('row2');</script></div>
         <div class="row">Follows company & store rules: <script>renderRadio('row3');</script></div>
-        <textarea placeholder="Supervisor Comments..."></textarea>
+        <textarea id="comment1" placeholder="Supervisor Comments..."></textarea>
     </div>
 
     <div class="section">
@@ -82,7 +82,7 @@
         <div class="row">Correct display & planogram compliance: <script>renderRadio('row4');</script></div>
         <div class="row">Product availability & shelf condition: <script>renderRadio('row5');</script></div>
         <div class="row">Proper execution of promos & standards: <script>renderRadio('row6');</script></div>
-        <textarea placeholder="Supervisor Comments..."></textarea>
+        <textarea id="comment2" placeholder="Supervisor Comments..."></textarea>
     </div>
 
     <div class="section">
@@ -90,7 +90,7 @@
         <div class="row">On-time submission of reports: <script>renderRadio('row7');</script></div>
         <div class="row">Accuracy & completeness of reports: <script>renderRadio('row8');</script></div>
         <div class="row">Compliance with reporting guidelines: <script>renderRadio('row9');</script></div>
-        <textarea placeholder="Supervisor Comments..."></textarea>
+        <textarea id="comment3" placeholder="Supervisor Comments..."></textarea>
     </div>
 
     <div class="section">
@@ -98,7 +98,7 @@
         <div class="row">Relationship with store staff: <script>renderRadio('row10');</script></div>
         <div class="row">Responsiveness & cooperation: <script>renderRadio('row11');</script></div>
         <div class="row">Overall client satisfaction: <script>renderRadio('row12');</script></div>
-        <textarea placeholder="Supervisor Comments..."></textarea>
+        <textarea id="comment4" placeholder="Supervisor Comments..."></textarea>
     </div>
 
     <div class="section">
@@ -111,19 +111,19 @@
             <label><input type="radio" name="overall" id="score-exc" disabled> Excellent (60)</label>
         </div>
         <p>Key Strengths:</p>
-        <textarea></textarea>
+        <textarea id="keyStrengths"></textarea>
     </div>
 
     <div class="section">
         <h3>PERFORMANCE IMPROVEMENT PLAN (PIP)</h3>
         <p>Issues to Improve:</p>
-        <textarea></textarea>
+        <textarea id="pipIssues"></textarea>
         <p>Agreed Action Steps:</p>
         <div class="action-steps-container">
-            <input type="text" class="action-step-input" placeholder="1. ________________________________________">
-            <input type="text" class="action-step-input" placeholder="2. ________________________________________">
+            <input type="text" id="action1" class="action-step-input" placeholder="1. ________________________________________">
+            <input type="text" id="action2" class="action-step-input" placeholder="2. ________________________________________">
         </div>
-        <p style="margin-top: 15px;">Target Date for Improvement: <input type="date"></p>
+        <p style="margin-top: 15px;">Target Date for Improvement: <input type="date" id="targetDate"></p>
     </div>
 
     <div class="section">
@@ -133,15 +133,11 @@
                 <label>Employee Signature:</label>
                 <canvas id="sigEmp" width="300" height="150"></canvas>
                 <button type="button" class="clear-btn" onclick="clearSig('sigEmp')">Clear Signature</button>
-                <label style="font-size: 0.8rem; margin-top: 5px;">Date:</label>
-                <input type="date" style="padding: 5px; width: 100%; max-width: 300px;">
             </div>
             <div class="sig-container">
                 <label>Supervisor Signature:</label>
                 <canvas id="sigSup" width="300" height="150"></canvas>
                 <button type="button" class="clear-btn" onclick="clearSig('sigSup')">Clear Signature</button>
-                <label style="font-size: 0.8rem; margin-top: 5px;">Date:</label>
-                <input type="date" style="padding: 5px; width: 100%; max-width: 300px;">
             </div>
         </div>
     </div>
@@ -152,9 +148,11 @@
     </div>
 </div>
 
-<button class="btn-download" onclick="window.print()">SAVE & DOWNLOAD AS PDF</button>
+<button class="btn-download" onclick="submitForm()">SUBMIT TO GOOGLE SHEET & PRINT</button>
 
 <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxL_aRn9mYDZ1fDbxzZYHbhetpqd6VFsUpbQhNRxSQThQo6i7p5HPDMkT0VwQUsikL77A/exec';
+
     function calculateScore() {
         let total = 0;
         for (let i = 1; i <= 12; i++) {
@@ -171,6 +169,38 @@
         else if (total >= 36 && total <= 47) document.getElementById('score-acc').checked = true;
         else if (total >= 48 && total <= 59) document.getElementById('score-good').checked = true;
         else if (total >= 60) document.getElementById('score-exc').checked = true;
+    }
+
+    function submitForm() {
+        let formData = new FormData();
+        formData.append('empName', document.getElementById('empName').value);
+        formData.append('date', document.getElementById('date').value);
+        formData.append('store', document.getElementById('store').value);
+        formData.append('supervisor', document.getElementById('supervisor').value);
+        formData.append('reviewPeriod', document.getElementById('reviewPeriod').value);
+        
+        for(let i=1; i<=12; i++) {
+            let val = document.querySelector(`input[name="row${i}"]:checked`)?.value || 0;
+            formData.append(`row${i}`, val);
+        }
+        
+        formData.append('comment1', document.getElementById('comment1').value);
+        formData.append('comment2', document.getElementById('comment2').value);
+        formData.append('comment3', document.getElementById('comment3').value);
+        formData.append('comment4', document.getElementById('comment4').value);
+        formData.append('totalScore', document.getElementById('total-score').innerText);
+        formData.append('keyStrengths', document.getElementById('keyStrengths').value);
+        formData.append('pipIssues', document.getElementById('pipIssues').value);
+        formData.append('action1', document.getElementById('action1').value);
+        formData.append('action2', document.getElementById('action2').value);
+        formData.append('targetDate', document.getElementById('targetDate').value);
+
+        fetch(scriptURL, { method: 'POST', body: formData })
+            .then(() => {
+                alert("Nai-save na ang data sa Google Sheet!");
+                window.print();
+            })
+            .catch(error => console.error('Error!', error.message));
     }
 
     function setupCanvas(id) {
