@@ -3,57 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iMerch Requirements Dashboard</title>
+    <title>iMerch Portal</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f6; padding: 40px; color: #333; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        :root {
+            --primary: #d32f2f;
+            --bg-light: #eef2f3;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --text-color: #333;
+        }
+        body.dark-mode {
+            --bg-light: #121212;
+            --glass-bg: rgba(40, 40, 40, 0.7);
+            --text-color: #fff;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            background: linear-gradient(135deg, #d32f2f, #7b1fa2); 
+            min-height: 100vh; margin: 0; padding: 40px; 
+            color: var(--text-color);
+            transition: all 0.5s ease;
+        }
+
+        .container { 
+            max-width: 800px; margin: auto; 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(15px); /* Eto ang WOW Factor */
+            padding: 40px; border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
         .header { text-align: center; margin-bottom: 30px; }
-        .logo { max-width: 200px; margin-bottom: 10px; }
-        h1 { color: #d32f2f; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; text-transform: uppercase; }
-        .card { background: #f9f9f9; padding: 20px; border-left: 5px solid #d32f2f; margin: 20px 0; border-radius: 4px; }
-        .btn { display: inline-block; background: #d32f2f; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; }
-        .btn-disabled { background: #555; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; cursor: not-allowed; }
-        ul { line-height: 1.6; }
-        footer { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #666; border-top: 1px solid #ccc; padding-top: 20px; }
+        .logo { max-width: 150px; }
+        
+        .card { 
+            background: rgba(255,255,255,0.2); 
+            padding: 25px; border-radius: 15px; 
+            margin: 20px 0; border-left: 5px solid var(--primary);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: scale(1.02); }
+
+        .btn { 
+            background: var(--primary); color: white; padding: 12px 25px; 
+            text-decoration: none; border-radius: 50px; font-weight: bold; 
+            display: inline-block; margin-top: 15px; border: none; cursor: pointer;
+        }
+
+        .toggle-btn {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(255,255,255,0.2); border: none;
+            padding: 10px 20px; border-radius: 20px; cursor: pointer; color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
+<button class="toggle-btn" onclick="toggleMode()">🌓 Dark/Light Mode</button>
+
 <div class="container">
     <div class="header">
         <img src="logo1.png" alt="iMerch Logo" class="logo">
-        <h1>Requirement Assessments</h1>
+        <h1>Requirement Portal</h1>
     </div>
     
-    <p>Please be advised of the following procedures for the submission of these requirements.</p>
-
     <div class="card">
         <h3>1. Monthly Performance Assessment</h3>
-        <ul>
-            <li><strong>Target:</strong> All Field Team members (Managers down to Merchandisers/PMS).</li>
-            <li><strong>Implementation:</strong> Effective June 15, 2026. Must be attached to DTRs.</li>
-            <li><strong>Basis:</strong> Previous month (e.g., May 2026 for the June 15 cut-off).</li>
-            <li><strong>Process:</strong> Must be signed by the person evaluated and submitted to Head Office.</li>
-        </ul>
+        <p>Effective: June 15, 2026. Must be attached to DTRs.</p>
         <a href="form.html" class="btn">OPEN PERFORMANCE FORM</a>
     </div>
 
     <div class="card">
         <h3>2. Exit Clearance</h3>
-        <ul>
-            <li><strong>Required for:</strong> All resigned Disers and PMS.</li>
-            <li><strong>Inventory:</strong> Must attach the last inventory report (APP/Google report).</li>
-            <li><strong>Effective Date:</strong> June 5, 2026.</li>
-            <li><strong>Policy:</strong> Managers/Supervisors are responsible for ensuring compliance.</li>
-        </ul>
-        <a href="#" class="btn-disabled" onclick="event.preventDefault(); alert('Exit Clearance form is currently being updated. Please contact HR for the manual template.')">EXIT CLEARANCE FORM (SOON)</a>
+        <p>Effective: June 5, 2026. Inventory report required.</p>
+        <button class="btn" style="background:#555" onclick="alert('Form is being updated. Contact HR.')">SOON</button>
     </div>
-
-    <footer>
-        <p>No. 493 Halcon Street, Brgy. Malamig, Mandaluyong City 1550 Metro Manila, Philippines</p>
-        <p>Tel. Nos. 8260 8492 local 101</p>
-    </footer>
 </div>
 
+<script>
+    function toggleMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+</script>
 </body>
 </html>
