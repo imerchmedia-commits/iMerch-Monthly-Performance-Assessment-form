@@ -130,15 +130,22 @@
     <div class="section">
         <h3>ACKNOWLEDGMENT</h3>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <!-- Employee Signature -->
             <div class="sig-container">
                 <label>Employee Signature:</label>
                 <canvas id="sigEmp" width="300" height="150"></canvas>
                 <button type="button" class="clear-btn" onclick="clearSig('sigEmp')">Clear Signature</button>
+                <label style="font-size: 0.8rem; margin-top: 5px;">Date:</label>
+                <input type="date" style="padding: 5px; width: 100%; max-width: 300px;">
             </div>
+            
+            <!-- Supervisor Signature -->
             <div class="sig-container">
                 <label>Supervisor Signature:</label>
                 <canvas id="sigSup" width="300" height="150"></canvas>
                 <button type="button" class="clear-btn" onclick="clearSig('sigSup')">Clear Signature</button>
+                <label style="font-size: 0.8rem; margin-top: 5px;">Date:</label>
+                <input type="date" style="padding: 5px; width: 100%; max-width: 300px;">
             </div>
         </div>
     </div>
