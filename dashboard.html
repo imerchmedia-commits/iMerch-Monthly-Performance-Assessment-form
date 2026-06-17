@@ -12,14 +12,15 @@
         h1 { color: #d32f2f; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; text-transform: uppercase; }
         .card { background: #f9f9f9; padding: 20px; border-left: 5px solid #d32f2f; margin: 20px 0; border-radius: 4px; }
         .btn { display: inline-block; background: #d32f2f; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; }
+        .btn-disabled { background: #555; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; cursor: not-allowed; }
         ul { line-height: 1.6; }
+        footer { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #666; border-top: 1px solid #ccc; padding-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <!-- Siguraduhing pareho ang filename ng logo sa ginamit mo sa index.html -->
         <img src="logo1.png" alt="iMerch Logo" class="logo">
         <h1>Requirement Assessments</h1>
     </div>
@@ -29,10 +30,10 @@
     <div class="card">
         <h3>1. Monthly Performance Assessment</h3>
         <ul>
-            <li>For all Field Team members (Managers down to Merchandisers/PMS).</li>
-            <li>Effective June 15, 2026: Must be attached to DTRs.</li>
-            <li>Basis: Previous month (e.g., May 2026 for the June 15 cut-off).</li>
-            <li>Must be signed by the person evaluated and submitted to Head Office.</li>
+            <li><strong>Target:</strong> All Field Team members (Managers down to Merchandisers/PMS).</li>
+            <li><strong>Implementation:</strong> Effective June 15, 2026. Must be attached to DTRs.</li>
+            <li><strong>Basis:</strong> Previous month (e.g., May 2026 for the June 15 cut-off).</li>
+            <li><strong>Process:</strong> Must be signed by the person evaluated and submitted to Head Office.</li>
         </ul>
         <a href="index.html" class="btn">OPEN PERFORMANCE FORM</a>
     </div>
@@ -40,15 +41,18 @@
     <div class="card">
         <h3>2. Exit Clearance</h3>
         <ul>
-            <li>Required for all resigned Disers and PMS.</li>
-            <li>Must attach the last inventory report (written or printed via APP/Google report).</li>
-            <li>Effective Date: June 5, 2026.</li>
-            <li>Managers/Supervisors are responsible for ensuring compliance.</li>
+            <li><strong>Required for:</strong> All resigned Disers and PMS.</li>
+            <li><strong>Inventory:</strong> Must attach the last inventory report (APP/Google report).</li>
+            <li><strong>Effective Date:</strong> June 5, 2026.</li>
+            <li><strong>Policy:</strong> Managers/Supervisors are responsible for ensuring compliance.</li>
         </ul>
-        <a href="#" class="btn" onclick="alert('Please contact HR for the Exit Clearance form template.')">OPEN EXIT CLEARANCE FORM</a>
+        <a href="#" class="btn-disabled" onclick="event.preventDefault(); alert('Exit Clearance form is currently being updated. Please contact HR for the manual template.')">EXIT CLEARANCE FORM (SOON)</a>
     </div>
 
-    <p><em>Should you have concerns and questions, please call. Thank you.</em></p>
+    <footer>
+        <p>No. 493 Halcon Street, Brgy. Malamig, Mandaluyong City 1550 Metro Manila, Philippines</p>
+        <p>Tel. Nos. 8260 8492 local 101</p>
+    </footer>
 </div>
 
 </body>
