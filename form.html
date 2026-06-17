@@ -151,7 +151,7 @@
 <button class="btn-download" onclick="submitForm()">SUBMIT TO GOOGLE SHEET & PRINT</button>
 
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxL_aRn9mYDZ1fDbxzZYHbhetpqd6VFsUpbQhNRxSQThQo6i7p5HPDMkT0VwQUsikL77A/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxjZMhwvJnQPotcpNoE620TTlRtriHcwEuE8O5pCTkbmGzlh3eM5AkIAxIf9t3w1ybL/exec';
 
     function calculateScore() {
         let total = 0;
@@ -172,35 +172,39 @@
     }
 
     function submitForm() {
-        let formData = new FormData();
-        formData.append('empName', document.getElementById('empName').value);
-        formData.append('date', document.getElementById('date').value);
-        formData.append('store', document.getElementById('store').value);
-        formData.append('supervisor', document.getElementById('supervisor').value);
-        formData.append('reviewPeriod', document.getElementById('reviewPeriod').value);
-        
-        for(let i=1; i<=12; i++) {
-            let val = document.querySelector(`input[name="row${i}"]:checked`)?.value || 0;
-            formData.append(`row${i}`, val);
-        }
-        
-        formData.append('comment1', document.getElementById('comment1').value);
-        formData.append('comment2', document.getElementById('comment2').value);
-        formData.append('comment3', document.getElementById('comment3').value);
-        formData.append('comment4', document.getElementById('comment4').value);
-        formData.append('totalScore', document.getElementById('total-score').innerText);
-        formData.append('keyStrengths', document.getElementById('keyStrengths').value);
-        formData.append('pipIssues', document.getElementById('pipIssues').value);
-        formData.append('action1', document.getElementById('action1').value);
-        formData.append('action2', document.getElementById('action2').value);
-        formData.append('targetDate', document.getElementById('targetDate').value);
+        let data = {
+            empName: document.getElementById('empName').value,
+            date: document.getElementById('date').value,
+            store: document.getElementById('store').value,
+            supervisor: document.getElementById('supervisor').value,
+            reviewPeriod: document.getElementById('reviewPeriod').value,
+            comment1: document.getElementById('comment1').value,
+            comment2: document.getElementById('comment2').value,
+            comment3: document.getElementById('comment3').value,
+            comment4: document.getElementById('comment4').value,
+            totalScore: document.getElementById('total-score').innerText,
+            keyStrengths: document.getElementById('keyStrengths').value,
+            pipIssues: document.getElementById('pipIssues').value,
+            action1: document.getElementById('action1').value,
+            action2: document.getElementById('action2').value,
+            targetDate: document.getElementById('targetDate').value
+        };
 
-        fetch(scriptURL, { method: 'POST', body: formData })
-            .then(() => {
-                alert("Nai-save na ang data sa Google Sheet!");
-                window.print();
-            })
-            .catch(error => console.error('Error!', error.message));
+        for(let i=1; i<=12; i++) {
+            data['row' + i] = document.querySelector(`input[name="row${i}"]:checked`)?.value || 0;
+        }
+
+        fetch(scriptURL, { 
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+        .then(() => {
+            alert("Nai-save na ang data sa Google Sheet!");
+            window.print();
+        })
+        .catch(error => console.error('Error!', error));
     }
 
     function setupCanvas(id) {
